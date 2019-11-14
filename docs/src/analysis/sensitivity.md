@@ -168,14 +168,14 @@ u0dual = convert.(eltype(pdual),u0)
 Now we just use these Dual numbers to solve:
 
 ```julia
-prob_dual = ODEProblem(f,u0,tspan,pdual)
+prob_dual = ODEProblem(f,u0dual,tspan,pdual)
 sol_dual = solve(prob_dual,Tsit5(), saveat=0.2)
 ```
 
 The solution is now in terms of Dual numbers. We can extract the derivatives
 by looking at the partials of the duals in the solution. For example, `sol[1,end]`
 is the Dual number for the `x` component at the end of the integration, and so
-`sol[1,end].partial[i]` is `dx(t_end)/dp_i`.
+`sol[1,end].partials[i]` is `dx(t_end)/dp_i`.
 
 ### Local Forward Sensitivity Analysis via ODELocalSensitivityProblem
 
